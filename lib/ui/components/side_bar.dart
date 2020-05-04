@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const SIDE_BAR_SPACE = 200.0;
+
 class SideBar extends StatefulWidget {
   @override
   _SideBarState createState() => _SideBarState();
@@ -11,7 +13,7 @@ class _SideBarState extends State<SideBar> {
     return Theme(
       data: ThemeData.dark(),
       child: Container(
-        width: 200,
+        width: SIDE_BAR_SPACE,
         height: MediaQuery.of(context).size.height,
         color: Colors.indigo,
         child: Container(
