@@ -37,9 +37,20 @@ class _FilePreviewState extends State<FilePreview> {
     return Container(
       width: FILE_PREVIEW_WIDTH,
       height: FILE_PREVIEW_HEIGHT,
+      decoration: widget.uiFile.isSelected
+          ? BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            )
+          : null,
       child: GestureDetector(
-        onPanStart: (DragStartDetails details) {},
+        onPanStart: (DragStartDetails details) {
+          // Select file / folder
+          var index = _fileProvider.uiFiles.indexOf(widget.uiFile);
+          _fileProvider.selectFile(index);
+        },
         onPanUpdate: (DragUpdateDetails details) {
+          // Move file / folder
           var index = _fileProvider.uiFiles.indexOf(widget.uiFile);
           var uiFile = widget.uiFile;
           uiFile.x = details.globalPosition.dx -
@@ -48,7 +59,7 @@ class _FilePreviewState extends State<FilePreview> {
           uiFile.y = details.globalPosition.dy - (FILE_PREVIEW_HEIGHT / 2);
           _fileProvider.updateFile(index, uiFile);
         },
-        onPanEnd: (DragEndDetails details) {},
+        onDoubleTap: () {},
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
