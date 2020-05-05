@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_finder/model/ui_file.dart';
 import 'package:flutter_finder/providers/file_provider.dart';
+import 'package:flutter_finder/ui/components/action_bar.dart';
 import 'package:flutter_finder/ui/components/file_explorer.dart';
 import 'package:flutter_finder/ui/components/previews/file_preview.dart';
 import 'package:flutter_finder/ui/components/side_bar.dart';
@@ -33,11 +34,19 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Row(
         children: [
           SideBar(),
           Expanded(
-            child: FileExplorer(),
+            child: Column(
+              children: [
+//                ActionBar(),
+                Expanded(
+                  child: FileExplorer(),
+                ),
+              ],
+            ),
           ),
         ],
       ),

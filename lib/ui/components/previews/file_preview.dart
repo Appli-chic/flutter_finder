@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 
 import '../side_bar.dart';
 
-const FILE_PREVIEW_WIDTH = 100.0;
-const FILE_PREVIEW_HEIGHT = 70.0;
+const FILE_PREVIEW_WIDTH = 110.0;
+const FILE_PREVIEW_HEIGHT = 90.0;
 
 class FilePreview extends StatefulWidget {
   FilePreview({
@@ -26,14 +26,6 @@ class _FilePreviewState extends State<FilePreview> {
   FileProvider _fileProvider;
 
   Widget _displayWidget() {
-    var icon = Icons.insert_drive_file;
-    var isFolder =
-        FileSystemEntity.isDirectorySync(widget.uiFile.fileSystemEntity.path);
-
-    if (isFolder) {
-      icon = Icons.folder;
-    }
-
     return Container(
       width: FILE_PREVIEW_WIDTH,
       height: FILE_PREVIEW_HEIGHT,
@@ -59,26 +51,33 @@ class _FilePreviewState extends State<FilePreview> {
           uiFile.y = details.globalPosition.dy - (FILE_PREVIEW_HEIGHT / 2);
           _fileProvider.updateFile(index, uiFile);
         },
-        onDoubleTap: () {},
+        onTap: () {
+          var index = _fileProvider.uiFiles.indexOf(widget.uiFile);
+          _fileProvider.selectFile(index);
+        },
+        onDoubleTap: () {
+          if(widget.uiFile.isFolder) {
+            _fileProvider.updatePath(context, _fileProvider.path + "/" + path.basename(widget.uiFile.fileSystemEntity.path));
+          }
+        },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              child: Icon(
-                icon,
-                color: Colors.indigo,
-                size: 50,
+              height: 50,
+              width: 50,
+              child: Image.asset(
+                widget.uiFile.iconPath,
               ),
             ),
             Container(
               width: FILE_PREVIEW_WIDTH,
               child: Text(
                 path.basename(widget.uiFile.fileSystemEntity.path),
-                maxLines: 1,
+                maxLines: 2,
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                  color: Colors.indigo,
                   fontSize: 16,
                 ),
               ),

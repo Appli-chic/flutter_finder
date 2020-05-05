@@ -3,7 +3,7 @@ import 'package:flutter_finder/providers/file_provider.dart';
 import 'package:flutter_finder/ui/components/previews/file_preview.dart';
 import 'package:provider/provider.dart';
 
-const LINE_SPACE = 90.0;
+const LINE_SPACE = 100.0;
 const COLUMN_SPACE = 110.0;
 
 class FileExplorer extends StatefulWidget {

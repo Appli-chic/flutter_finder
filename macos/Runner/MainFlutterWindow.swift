@@ -31,6 +31,8 @@ class MainFlutterWindow: NSWindow {
                 self.getDocumentPath(result: result)
             } else if call.method == "getDesktopPath" {
                 self.getDesktopPath(result: result)
+            } else {
+                result("/")
             }
         })
         
